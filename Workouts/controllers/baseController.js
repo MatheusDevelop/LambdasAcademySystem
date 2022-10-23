@@ -1,19 +1,18 @@
-const db = require("../db");
-const crud = require("../utils/crud");
-const response = require("../utils/response");
+const {db} = require("../db");
+const {crud} = require("../utils/crud");
 
 const getMethod = (TableName) => {
   try {
-    return response(crud.read(TableName, db), 200);
+    return crud.read(TableName, db);
   } catch (err) {
     throw err;
   }
 };
 const postMethod = (TableName, model) => {
   try {
-    return response(crud.insert(TableName, db, model), 201);
+    return crud.insert(TableName, db, model);
   } catch (err) {
-    throw err;
+    return response(err,500)
   }
 };
 const controllers = {

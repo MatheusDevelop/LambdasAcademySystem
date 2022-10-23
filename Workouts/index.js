@@ -1,7 +1,7 @@
-const baseController = require("./controllers/baseController");
-const response = require("./utils/response");
+const {controllers} = require("./controllers/baseController");
+const { response } = require("./utils/response");
 
-exports.handler = async function (event) {
+exports.handler = async function (event,context) {
   try {
     switch (event.path) {
       case "/workouts":
@@ -21,9 +21,9 @@ const executeMethods = (event, TableName) => {
   try {
     switch (event.httpMethod) {
       case "GET":
-        return baseController.GET(TableName);
+        return controllers.GET(TableName);
       case "POST":
-        return baseController.POST(TableName, JSON.parse(event.body));
+        return controllers.POST(TableName, JSON.parse(event.body));
       default:
         return response({ message: "Method not founded" }, 404);
     }
